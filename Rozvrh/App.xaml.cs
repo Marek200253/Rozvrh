@@ -22,6 +22,8 @@ namespace Rozvrh
     /// </summary>
     sealed partial class App : Application
     {
+        public event EventHandler<Exception> UnhandledExceptionOccurred;
+
         /// <summary>
         /// Inicializuje objekt aplikace typu singleton. Jedná se o první řádek spuštěného vytvořeného kódu,
         /// který je proto logickým ekvivalentem metod main() nebo WinMain().
@@ -40,6 +42,7 @@ namespace Rozvrh
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
+            Current.UnhandledException += Application_UnhandledException;
 
             // Neopakovat inicializaci aplikace, pokud už má okno obsah,
             // jenom ověřit, jestli je toto okno aktivní
@@ -94,7 +97,22 @@ namespace Rozvrh
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Uložit stav aplikace a zastavit jakoukoliv aktivitu na pozadí
+            MainPage mainPage = MainPage.current;
+            mainPage.saveLogs();
             deferral.Complete();
         }
+
+        private void Application_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            // Zachycení výjimky
+            Exception exception = e.Exception;
+
+            // Vyvolání události UnhandledExceptionOccurred a předání vyjímky
+            UnhandledExceptionOccurred?.Invoke(this, exception);
+
+            // Zastavení šíření výjimky
+            e.Handled = true;
+        }
+
     }
 }

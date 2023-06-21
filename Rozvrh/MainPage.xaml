@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
@@ -17,19 +17,21 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
+        
         <TextBlock Text="Cesta k vyexportovanému rozvrhu:" Grid.Row="0" Grid.ColumnSpan="2" Margin="30" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox x:Name="pathTB" ToolTipService.ToolTip="Cesta k rozvrhu vyexportovaného aplikací" Grid.Row="0" Grid.ColumnSpan="2" Margin="30,55,135,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" KeyDown="pathTB_KeyDown"/>
         <Button x:Name="pickB" Content="Procházet" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,55,30,0" Click="pickB_Click"/>
-        <Button x:Name="startB" Content="Start" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,55,30,10" Click="startB_Click"/>
-
+        <Button x:Name="startB" Content="Start" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,55,30,10" Click="startB_Click" IsEnabled="False"/>
+        <Button x:Name="optionB" Content="Nastavení" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,46" Click="optionB_Click" Visibility="Collapsed" IsEnabled="False"/>
+        <Button x:Name="deleteB" Content="Resetovat seznam" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,82" Click="deleteB_Click" Visibility="Collapsed"/>
+        
         <TextBlock x:Name="searchL" Text="Najít předmět:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,120,0,0" Visibility="Collapsed"/>
         <TextBox x:Name="searchTB" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Margin="100,114,30,0" Visibility="Collapsed" KeyDown="searchTB_KeyDown"/>
         <TextBlock x:Name="srolL" Text="Vybrané předměty:" Margin="0,160,90,10" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed"/>
-        <ScrollViewer x:Name="srolIt" Margin="0,180,90,10" Grid.Row="0" Grid.Column="1" Visibility="Collapsed">
+        <ScrollViewer x:Name="srolIt" Margin="0,180,166,10" Grid.Row="0" Grid.Column="1" Visibility="Collapsed">
             <TextBlock x:Name="selItems" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         </ScrollViewer>
-        <ListBox x:Name="subjectsLB" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="30,120,20,10" Visibility="Collapsed" DoubleTapped="subjectsLB_DoubleTapped"/>
+        <ListBox x:Name="subjectsLB" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="30,120,20,10" Visibility="Collapsed" DoubleTapped="subjectsLB_DoubleTapped" ToolTipService.ToolTip="Dvojitým kliknutím přidáte předmět"/>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="2" x:Name="timeGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -59,29 +61,33 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.1*"/>
             </Grid.ColumnDefinitions>
+
+            <Border BorderBrush="Gray" Opacity="1" BorderThickness="1" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="13" Grid.RowSpan="6"/>
             
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="13" Grid.RowSpan="6"/>
+            
+            <Border BorderBrush="Gray" Opacity="0.7" BorderThickness="1" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="12" Grid.RowSpan="6"/>
+            <Border BorderBrush="Gray" Opacity="0.7" BorderThickness="1" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="13" Grid.RowSpan="5"/>
 
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="13"/>
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="13"/>
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="13"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="13"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="13"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="13"/>
 
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="1" Grid.Column="2" Grid.RowSpan="6"/>
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="1" Grid.Column="4" Grid.RowSpan="6"/>
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="1" Grid.Column="6" Grid.RowSpan="6"/>
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="1" Grid.Column="8" Grid.RowSpan="6"/>
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="1" Grid.Column="10" Grid.RowSpan="6"/>
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="1" Grid.Column="12" Grid.RowSpan="6"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="1" Grid.Column="2" Grid.RowSpan="6"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="1" Grid.Column="4" Grid.RowSpan="6"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="1" Grid.Column="6" Grid.RowSpan="6"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="1" Grid.Column="8" Grid.RowSpan="6"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="1" Grid.Column="10" Grid.RowSpan="6"/>
+            <Border BorderBrush="Gray" Opacity="0.1" BorderThickness="1" Grid.Row="1" Grid.Column="12" Grid.RowSpan="6"/>
 
-            <Rectangle Name="denR1" Fill="LightCyan" Grid.Row="2" Grid.Column="1" Margin="2"/>
+            <Rectangle Name="denR1" Fill="LightCyan" Grid.Row="2" Grid.Column="1" Margin="4,4,3,3"/>
             <TextBlock Text="PO" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Rectangle Name="denR2" Fill="LightCyan" Grid.Row="3" Grid.Column="1" Margin="2"/>
+            <Rectangle Name="denR2" Fill="LightCyan" Grid.Row="3" Grid.Column="1" Margin="4,3,3,3"/>
             <TextBlock Text="ÚT" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Rectangle Name="denR3" Fill="LightCyan" Grid.Row="4" Grid.Column="1" Margin="2"/>
+            <Rectangle Name="denR3" Fill="LightCyan" Grid.Row="4" Grid.Column="1" Margin="4,3,3,3"/>
             <TextBlock Text="ST" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Rectangle Name="denR4" Fill="LightCyan" Grid.Row="5" Grid.Column="1" Margin="2"/>
+            <Rectangle Name="denR4" Fill="LightCyan" Grid.Row="5" Grid.Column="1" Margin="4,3,3,3"/>
             <TextBlock Text="ČT" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Rectangle Name="denR5" Fill="LightCyan" Grid.Row="6" Grid.Column="1" Margin="2"/>
+            <Rectangle Name="denR5" Fill="LightCyan" Grid.Row="6" Grid.Column="1" Margin="4,3,3,4"/>
             <TextBlock Text="PÁ" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <TextBlock Text="8:00 - 8:50" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
